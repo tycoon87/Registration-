@@ -1,20 +1,114 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+  <div *ngIf ="currentuser" class="alert alert-primary" role="alert">
+    Thanks for signing up {{User.Email }} we will be sending your mail to {{User.Address + User.Address2 + User.Zip }}
+    </div>
+  {{User}}
+  <form #regform="ngForm" (submit)="onSubmit(regform)">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input
+          name="Email" 
+          required 
+          minlength="2" 
+          maxlength="50"
+          [(ngModel)]="User.Email"
+          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+          #Email='ngModel'
+          type="email" 
+          class="form-control" 
+          id="inputEmail4" 
+          placeholder="Email">
+          <div *ngIf="!Email.valid"
+          class="alert alert-danger" 
+          role="alert">
+            Must be a valid Email!
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+          <input
+          type="password" 
+          name="Password" 
+          required 
+          minlength="8" 
+          maxlength="15"
+          pattern="^([a-zA-Z0-9@*#]{3,15})$"
+          [(ngModel)]="User.Password"
+          #Password='ngModel'
+          class="form-control" 
+          id="inputPassword4" 
+          placeholder="Password">
+          <div *ngIf="!Password.valid"
+          class="alert alert-danger" 
+          role="alert">
+            Must be a valid Password you B-ZEE!
+            </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input 
+        name="Address"
+        [(ngModel)]="User.Address"
+          type="text"
+          #Address='ngModel'
+          class="form-control"
+          id="inputAddress" 
+          placeholder="1234 Main St">
+      </div>
+      <div class="form-group">
+        <input 
+        name="Address2"
+        #Address2='ngModel'
+        [(ngModel)]="User.Address2"
+          type="text"
+         class="form-control" 
+         id="inputAddress2" 
+         placeholder="Apartment, studio, or floor">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input 
+          [(ngModel)]="User.City"
+          #City='ngModel'
+          type="text"
+           class="form-control"
+            id="inputCity"
+            placeholder="City">
+        </div>
+        <div class="form-group col-md-4">
+          <select 
+          #State='ngModel'
+          [(ngModel)]="User.State"
+          id="inputState" 
+          class="form-control">
+            <option selected>Choose state</option>
+            <option>California</option>
+            <option>Somewhere else</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <input 
+          #Zip='ngModel'
+          [(ngModel)]="User.Zip"
+          minlength="5"
+          maxlength="5"
+          type="text"
+          pattern="(0-9)"
+          class="form-control"
+          id="inputZip"
+          placeholder="Zipcode">
+          <div *ngIf="!Zip.valid"
+          class="alert alert-danger" 
+          role="alert">
+            needs to ve a valid zipcode 
+            </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox"> check box if you are cool
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
